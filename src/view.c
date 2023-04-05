@@ -1,0 +1,39 @@
+#include <stdlib.h>
+
+#include "GL/gl.h"
+
+#include "view.h"
+
+int breadbox_view_init(breadbox_view_t *view) {
+    // ATI Rage or bust! ~Alex
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    view->window = SDL_CreateWindow(
+        "Breadbox",
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        320,
+        240,
+        SDL_WINDOW_OPENGL
+    );
+    if(view->window) {
+        view->context = SDL_GL_CreateContext(view->window);
+        if(view->context) {
+            return 0;
+        }
+        SDL_DestroyWindow(view->window);
+    }
+    return 1;
+}
+
+void breadbox_view_fini(breadbox_view_t *view) {
+    // ...
+    SDL_GL_DeleteContext(view->context);
+    SDL_DestroyWindow(view->window);
+}
+
+void breadbox_view_render(breadbox_view_t *view, breadbox_model_t *model) {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // ...
+    SDL_GL_SwapWindow(view->window);
+}

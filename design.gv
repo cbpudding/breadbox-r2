@@ -1,0 +1,31 @@
+digraph {
+    label="The Breadbox Engine";
+    rankdir=LR;
+
+    subgraph cluster_engine {
+        label="Engine";
+
+        model [label="Model"]
+        subscriptions [label="Subscriptions"]
+        view [label="View"]
+
+        subscriptions -> model -> view
+    }
+
+    subgraph cluster_libraries {
+        label="Libraries";
+
+        lua [label="Lua"]
+        microui
+        opengl [label="OpenGL"]
+        physfs [label="PhysFS"]
+        plibsys
+        sdl2 [label="SDL2"]
+        ya_getopt
+
+        opengl -> sdl2
+    }
+
+    sdl2 -> subscriptions
+    view -> opengl
+}
