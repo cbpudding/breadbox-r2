@@ -2,7 +2,8 @@
 
 int main(int argc, char *argv[]) {
     breadbox_t engine;
-    if(!breadbox_init(&engine)) {
+    char *name = argc > 0 ? argv[0] : NULL;
+    if(!breadbox_init(&engine, name)) {
         breadbox_run(&engine);
         breadbox_fini(&engine);
     }

@@ -14,7 +14,7 @@ typedef struct {
     breadbox_view_t view;
 } breadbox_t;
 
-int breadbox_init(breadbox_t *engine);
+int breadbox_init(breadbox_t *engine, char *name);
 void breadbox_fini(breadbox_t *engine);
 
 void breadbox_run(breadbox_t *engine);

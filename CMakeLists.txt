@@ -4,7 +4,6 @@ project(breadbox C)
 
 set(OpenGL_GL_PREFERENCE GLVND)
 
-find_package(Lua REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(PhysFS REQUIRED)
 find_package(SDL2 REQUIRED)
