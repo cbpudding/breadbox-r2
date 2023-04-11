@@ -4,12 +4,17 @@
 #include "subscription.h"
 
 int breadbox_subs_init(breadbox_subs_t *subs) {
-    // ...
-    return 0;
+    PError *error;
+    if(subs->sock = p_socket_new(P_SOCKET_FAMILY_INET, P_SOCKET_TYPE_DATAGRAM, P_SOCKET_PROTOCOL_UDP, &error)) {
+        // ...
+        return 0;
+    }
+    return 1;
 }
 
 void breadbox_subs_fini(breadbox_subs_t *subs) {
     // ...
+    p_socket_free(subs->sock);
 }
 
 int breadbox_subs_poll(breadbox_subs_t *subs, breadbox_msg_t *msg) {

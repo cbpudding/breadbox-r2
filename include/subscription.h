@@ -1,10 +1,14 @@
 #ifndef SUBSCRIPTION_H
 #define SUBSCRIPTION_H
 
+#include <stdint.h>
+
+#include "plibsys.h"
+
 #include "message.h"
 
 typedef struct {
-    // TODO: Socket stuff
+    PSocket *sock;
 } breadbox_subs_t;
 
 int breadbox_subs_init(breadbox_subs_t *subs);
