@@ -1,5 +1,10 @@
 #include <stdbool.h>
 
+// winsock2 is required for plibsys' sockets on windows
+#ifdef _WIN32
+#pragma comment(lib, "Ws2_32.lib")
+#endif
+
 #include "plibsys.h"
 
 #include "breadbox.h"
