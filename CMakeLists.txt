@@ -24,7 +24,6 @@ target_include_directories(breadbox
         ${PROJECT_SOURCE_DIR}/lib/plibsys
         ${PROJECT_SOURCE_DIR}/lib/plibsys/src
         ${PROJECT_SOURCE_DIR}/lib/ya_getopt
-        ${LUA_INCLUDE_DIR}
         ${OPENGL_INCLUDE_DIR}
         ${PHYSFS_INCLUDE_DIR}
         ${SDL2_INCLUDE_DIR}
@@ -32,7 +31,6 @@ target_include_directories(breadbox
 
 target_link_libraries(breadbox
     ${PROJECT_SOURCE_DIR}/lib/plibsys/libplibsysstatic.a
-    ${LUA_LIBRARIES}
     ${OPENGL_LIBRARIES}
     ${PHYSFS_LIBRARY}
     ${SDL2_LIBRARIES}
