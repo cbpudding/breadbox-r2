@@ -3,7 +3,6 @@
 // winsock2 is required for plibsys' sockets on windows
 #ifdef _WIN32
 #pragma comment(lib, "Ws2_32.lib")
-#pragma comment(lib, "netlib.lib")
 #endif
 
 #include "plibsys.h"
