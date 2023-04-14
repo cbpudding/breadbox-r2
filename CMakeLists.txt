@@ -21,6 +21,7 @@ target_include_directories(breadbox
         ${PROJECT_SOURCE_DIR}/include
     PRIVATE
         ${PROJECT_SOURCE_DIR}/lib/microui/src
+        ${PROJECT_SOURCE_DIR}/lib/objpar
         ${PROJECT_SOURCE_DIR}/lib/plibsys
         ${PROJECT_SOURCE_DIR}/lib/plibsys/src
         ${PROJECT_SOURCE_DIR}/lib/ya_getopt

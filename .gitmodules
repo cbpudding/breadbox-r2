@@ -10,3 +10,7 @@
 	path = lib/ya_getopt
 	url = https://github.com/kubo/ya_getopt
 	ignore = dirty
+[submodule "lib/objpar"]
+	path = lib/objpar
+	url = https://github.com/bitnenfer/objpar
+	ignore = dirty

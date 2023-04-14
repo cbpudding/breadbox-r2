@@ -4,10 +4,12 @@
 #include "microui.h"
 
 #include "message.h"
+#include "stage.h"
 
 typedef struct {
     mu_Context *ui;
     // TODO: Script stuff
+    breadbox_stage_t stage;
 } breadbox_model_t;
 
 int breadbox_model_init(breadbox_model_t *model, char *name);
