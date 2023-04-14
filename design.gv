@@ -15,8 +15,9 @@ digraph {
     subgraph cluster_libraries {
         label="Libraries";
 
-        lua [label="Lua"]
+        lisp [label="Lisp"]
         microui
+        objpar
         opengl [label="OpenGL"]
         physfs [label="PhysFS"]
         plibsys
@@ -26,6 +27,8 @@ digraph {
         opengl -> sdl2
     }
 
+    model -> microui -> view
+    plibsys -> subscriptions
     sdl2 -> subscriptions
     view -> opengl
 }
