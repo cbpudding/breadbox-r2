@@ -2,10 +2,6 @@
 	path = lib/microui
 	url = https://github.com/rxi/microui
 	ignore = dirty
-[submodule "lib/plibsys"]
-	path = lib/plibsys
-	url = https://github.com/saprykin/plibsys
-	ignore = dirty
 [submodule "lib/ya_getopt"]
 	path = lib/ya_getopt
 	url = https://github.com/kubo/ya_getopt

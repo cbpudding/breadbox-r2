@@ -22,8 +22,6 @@ target_include_directories(breadbox
     PRIVATE
         ${PROJECT_SOURCE_DIR}/lib/microui/src
         ${PROJECT_SOURCE_DIR}/lib/objpar
-        ${PROJECT_SOURCE_DIR}/lib/plibsys
-        ${PROJECT_SOURCE_DIR}/lib/plibsys/src
         ${PROJECT_SOURCE_DIR}/lib/ya_getopt
         ${OPENGL_INCLUDE_DIR}
         ${PHYSFS_INCLUDE_DIR}
@@ -31,7 +29,6 @@ target_include_directories(breadbox
 )
 
 target_link_libraries(breadbox
-    ${PROJECT_SOURCE_DIR}/lib/plibsys/libplibsysstatic.a
     ${OPENGL_LIBRARIES}
     ${PHYSFS_LIBRARY}
     ${SDL2_LIBRARIES}

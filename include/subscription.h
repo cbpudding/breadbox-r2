@@ -3,12 +3,10 @@
 
 #include <stdint.h>
 
-#include "plibsys.h"
-
 #include "message.h"
 
 typedef struct {
-    PSocket *sock;
+    // TODO: Socket stuff
 } breadbox_subs_t;
 
 int breadbox_subs_init(breadbox_subs_t *subs);
