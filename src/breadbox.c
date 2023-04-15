@@ -31,7 +31,7 @@ void breadbox_run(breadbox_t *engine) {
     breadbox_msg_t msg;
     while(alive) {
         if(breadbox_subs_poll(&engine->subs, &msg)) {
-            switch(msg.variant) {
+            switch(msg) {
                 case BBMSG_QUIT:
                     alive = false;
                     break;

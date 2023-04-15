@@ -14,11 +14,6 @@ void breadbox_subs_fini(breadbox_subs_t *subs) {
 
 int breadbox_subs_poll_sdl(breadbox_subs_t *subs, breadbox_msg_t *msg) {
     SDL_Event event;
-    // All SDL events are from the local machine so the "player" is always
-    // us! ~Alex
-    // TODO: Will the local player always be 0?
-    msg->player = 0;
-    msg->tick = SDL_GetTicks64() / BREADBOX_TICK_DURATION;
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_KEYDOWN:
@@ -26,7 +21,7 @@ int breadbox_subs_poll_sdl(breadbox_subs_t *subs, breadbox_msg_t *msg) {
                 // TODO: What's the best way to handle inputs here?
                 break;
             case SDL_QUIT:
-                msg->variant = BBMSG_QUIT;
+                *msg = BBMSG_QUIT;
                 return 1;
             default:
                 break;
@@ -41,8 +36,6 @@ int breadbox_subs_poll(breadbox_subs_t *subs, breadbox_msg_t *msg) {
     }
     // TODO: Socket stuff for receiving messages from over the network. ~Alex
     // Re-render the result if there's nothing else to do. ~Alex
-    msg->player = 0;
-    msg->tick = SDL_GetTicks64() / BREADBOX_TICK_DURATION;
-    msg->variant = BBMSG_VIEW;
+    *msg = BBMSG_VIEW;
     return 1;
 }
