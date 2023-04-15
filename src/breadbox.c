@@ -40,7 +40,7 @@ void breadbox_run(breadbox_t *engine) {
     bool alive = true;
     breadbox_msg_t msg;
     while(alive) {
-        while(breadbox_subs_poll(&engine->subs, &msg)) {
+        if(breadbox_subs_poll(&engine->subs, &msg)) {
             switch(msg.variant) {
                 case BBMSG_QUIT:
                     alive = false;
