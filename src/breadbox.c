@@ -2,10 +2,10 @@
 
 #include "breadbox.h"
 
-int breadbox_init(breadbox_t *engine, char *name) {
+int breadbox_init(breadbox_t *engine) {
     int ret;
     if(!(ret = SDL_Init(SDL_INIT_EVERYTHING))) {
-        if(!(ret = breadbox_model_init(&engine->model, name))) {
+        if(!(ret = breadbox_model_init(&engine->model))) {
             if(!(ret = breadbox_subs_init(&engine->subs))) {
                 if(!(ret = breadbox_view_init(&engine->view))) {
                     return 0;

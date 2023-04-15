@@ -1,7 +1,6 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include "microui.h"
 #include "SDL.h"
 
 #include "model.h"
