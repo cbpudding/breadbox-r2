@@ -24,6 +24,7 @@ int breadbox_view_init(breadbox_view_t *view) {
     if(view->window) {
         view->context = SDL_GL_CreateContext(view->window);
         if(view->context) {
+            SDL_GL_SetSwapInterval(1);
             return 0;
         }
         SDL_DestroyWindow(view->window);
@@ -32,7 +33,6 @@ int breadbox_view_init(breadbox_view_t *view) {
 }
 
 void breadbox_view_fini(breadbox_view_t *view) {
-    // ...
     SDL_GL_DeleteContext(view->context);
     SDL_DestroyWindow(view->window);
 }

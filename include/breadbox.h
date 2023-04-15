@@ -5,13 +5,16 @@
 #define BREADBOX_TICKRATE 30
 #define BREADBOX_TICK_DURATION 1000 / BREADBOX_TICKRATE
 
+#include "message.h"
 #include "model.h"
 #include "subscription.h"
+#include "update.h"
 #include "view.h"
 
 typedef struct {
     breadbox_model_t model;
     breadbox_subs_t subs;
+    breadbox_update_t update;
     breadbox_view_t view;
 } breadbox_t;
 

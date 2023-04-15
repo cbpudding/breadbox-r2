@@ -39,7 +39,7 @@ void breadbox_run(breadbox_t *engine) {
                     breadbox_view_render(&engine->view, &engine->model);
                     break;
                 default:
-                    breadbox_model_update(&engine->model, &msg);
+                    breadbox_update_msg(&engine->update, &engine->model, &msg);
                     break;
             }
         }

@@ -8,6 +8,7 @@ typedef enum {
     BBMSG_VIEW
 } breadbox_msg_variant_t;
 
+// TODO: Is this actually enough for network transmission?
 typedef struct {
     uint_fast8_t player;
     uint_least64_t tick;
