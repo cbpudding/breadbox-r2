@@ -25,6 +25,10 @@ digraph {
 
         opengl [label="OpenGL"]
         sdl2 [label="SDL2"]
+
+        {rank=same; opengl sdl2}
+
+        opengl -> sdl2
     }
 
     sdl2 -> subscriptions
