@@ -12,5 +12,5 @@ The Breadbox Engine is designed with the intention of running on old/low-powered
 | Processor  | Intel Pentium or greater                        |
 | Memory     | DDR 128 MB or greater                           |
 | Graphics   | ATI 3D Rage II or greater (OpenGL 1.x required) |
-| Hard Drive | *Undecided*                                     |
+| Hard Drive | 700 MB of free disk space                       |
 | Sound Card | Creative Sound Blaster 16 or greater            |
