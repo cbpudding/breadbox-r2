@@ -1,0 +1,33 @@
+digraph {
+    graph [splines=ortho]
+    node [shape=box]
+
+    label="Breadbox 2024"
+
+    subgraph cluster_engine {
+        label="Engine"
+        style=dashed
+
+        model [label="Model"]
+        subscriptions [label="Subscriptions"]
+        update [label="Update"]
+        view [label="View"]
+
+        {rank=same; update model}
+        {rank=same; subscriptions view}
+
+        subscriptions -> update -> model -> view
+    }
+    
+    subgraph cluster_libraries {
+        label="Libraries"
+        style=dashed
+
+        opengl [label="OpenGL"]
+        sdl2 [label="SDL2"]
+    }
+
+    sdl2 -> subscriptions
+
+    view -> opengl
+}
