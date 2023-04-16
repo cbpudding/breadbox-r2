@@ -2,13 +2,14 @@
 
 #include "breadbox.h"
 
-int breadbox_init(breadbox_t *engine) {
+int breadbox_init(breadbox_t *engine, breadbox_options_t *options) {
     int ret;
+    engine->options = options;
     if(!(ret = SDL_Init(SDL_INIT_EVERYTHING))) {
         if(!(ret = breadbox_model_init(&engine->model))) {
             if(!(ret = breadbox_update_init(&engine->update))) {
                 if(!(ret = breadbox_subs_init(&engine->subs))) {
-                    if(!(ret = breadbox_view_init(&engine->view))) {
+                    if(!(ret = breadbox_view_init(&engine->view, engine->options))) {
                         return 0;
                     }
                     breadbox_subs_fini(&engine->subs);
@@ -34,7 +35,7 @@ void breadbox_run(breadbox_t *engine) {
     bool alive = true;
     breadbox_msg_t msg;
     while(alive) {
-        if(breadbox_subs_poll(&engine->subs, &msg)) {
+        if(breadbox_subs_poll(&engine->subs, engine->options, &msg)) {
             switch(msg) {
                 case BBMSG_QUIT:
                     alive = false;

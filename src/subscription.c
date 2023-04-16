@@ -1,6 +1,5 @@
 #include "SDL.h"
 
-#include "breadbox.h"
 #include "subscription.h"
 
 int breadbox_subs_init(breadbox_subs_t *subs) {
@@ -31,12 +30,8 @@ int breadbox_subs_poll_sdl(breadbox_subs_t *subs, breadbox_msg_t *msg) {
     return 0;
 }
 
-int breadbox_subs_poll(breadbox_subs_t *subs, breadbox_msg_t *msg) {
-    // For some reason, I need to keep the #defined constant in paranthesis in
-    // order for it to work properly. If this starts returning 0 rather than
-    // the actual result, that's why. I thought it was a GCC bug at first but
-    // it happens on Clang too. ~Alex
-    if(subs->tick < SDL_GetTicks() / (BREADBOX_TICK_DURATION)) {
+int breadbox_subs_poll(breadbox_subs_t *subs, breadbox_options_t *options, breadbox_msg_t *msg) {
+    if(subs->tick < SDL_GetTicks() / (1000 / options->tickrate)) {
         subs->tick++;
         *msg = BBMSG_TICK;
         return 1;

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 
+// Apparently, OpenGL freaks out on Windows if windows.h isn't included. ~Alex
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -9,22 +10,23 @@
 
 #include "view.h"
 
-int breadbox_view_init(breadbox_view_t *view) {
+int breadbox_view_init(breadbox_view_t *view, breadbox_options_t *options) {
     // ATI Rage or bust! ~Alex
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
     view->window = SDL_CreateWindow(
-        "Breadbox",
+        options->name,
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        320,
-        240,
+        options->width,
+        options->height,
         SDL_WINDOW_OPENGL
     );
     if(view->window) {
         view->context = SDL_GL_CreateContext(view->window);
         if(view->context) {
-            SDL_GL_SetSwapInterval(1);
+            SDL_SetWindowFullscreen(view->window, options->fullscreen ? SDL_WINDOW_FULLSCREEN : 0);
+            SDL_GL_SetSwapInterval(options->vsync);
             return 0;
         }
         SDL_DestroyWindow(view->window);
