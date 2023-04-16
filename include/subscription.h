@@ -6,6 +6,7 @@
 #include "message.h"
 
 typedef struct {
+    int tick;
     // TODO: Socket stuff
 } breadbox_subs_t;
 

@@ -4,6 +4,7 @@
 #include "subscription.h"
 
 int breadbox_subs_init(breadbox_subs_t *subs) {
+    subs->tick = 0;
     // ...
     return 0;
 }
@@ -31,7 +32,15 @@ int breadbox_subs_poll_sdl(breadbox_subs_t *subs, breadbox_msg_t *msg) {
 }
 
 int breadbox_subs_poll(breadbox_subs_t *subs, breadbox_msg_t *msg) {
-    if(breadbox_subs_poll_sdl(subs, msg)) {
+    // For some reason, I need to keep the #defined constant in paranthesis in
+    // order for it to work properly. If this starts returning 0 rather than
+    // the actual result, that's why. I thought it was a GCC bug at first but
+    // it happens on Clang too. ~Alex
+    if(subs->tick < SDL_GetTicks() / (BREADBOX_TICK_DURATION)) {
+        subs->tick++;
+        *msg = BBMSG_TICK;
+        return 1;
+    } else if(breadbox_subs_poll_sdl(subs, msg)) {
         return 1;
     }
     // TODO: Socket stuff for receiving messages from over the network. ~Alex
