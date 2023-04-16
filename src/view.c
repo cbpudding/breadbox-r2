@@ -25,6 +25,7 @@ int breadbox_view_init(breadbox_view_t *view, breadbox_options_t *options) {
     if(view->window) {
         view->context = SDL_GL_CreateContext(view->window);
         if(view->context) {
+            SDL_SetRelativeMouseMode(SDL_TRUE);
             SDL_SetWindowFullscreen(view->window, options->fullscreen ? SDL_WINDOW_FULLSCREEN : 0);
             SDL_GL_SetSwapInterval(options->vsync);
             return 0;

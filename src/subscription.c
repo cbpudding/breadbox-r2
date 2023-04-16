@@ -16,6 +16,10 @@ int breadbox_subs_poll_sdl(breadbox_subs_t *subs, breadbox_msg_t *msg) {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
+            case SDL_MOUSEBUTTONDOWN:
+            case SDL_MOUSEBUTTONUP:
+            case SDL_MOUSEMOTION:
+            case SDL_MOUSEWHEEL:
             case SDL_KEYDOWN:
             case SDL_KEYUP:
                 // TODO: What's the best way to handle inputs here?
