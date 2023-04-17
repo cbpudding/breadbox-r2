@@ -10,15 +10,33 @@ int breadbox_init(breadbox_t *engine, breadbox_options_t *options) {
             if(!(ret = breadbox_update_init(&engine->update))) {
                 if(!(ret = breadbox_subs_init(&engine->subs))) {
                     if(!(ret = breadbox_view_init(&engine->view, engine->options))) {
+                        breadbox_log_info(BBLOG_BREADBOX, "Successfully initialized the engine in %dms", SDL_GetTicks());
                         return 0;
+                    } else {
+                        // I complain about non-specific error messages all the
+                        // time at my job so why am I doing it here?!? ~Alex
+                        breadbox_log_error(BBLOG_VIEW, "Failed to initialize view");
                     }
                     breadbox_subs_fini(&engine->subs);
+                } else {
+                    // Yet another comment about myself complaining to myself
+                    // about non-specific error messages. ~Alex
+                    breadbox_log_error(BBLOG_SUBSCRIPTION, "Failed to initialize subscriptions");
                 }
                 breadbox_update_fini(&engine->update);
+            } else {
+                // There's probably a better way of handling this. We should at
+                // least say why we can't. ~Alex
+                breadbox_log_error(BBLOG_UPDATE, "Failed to initialize update");
             }
             breadbox_model_fini(&engine->model);
+        } else {
+            // Okay, but why? ~Alex
+            breadbox_log_error(BBLOG_MODEL, "Failed to initialize the model");
         }
         SDL_Quit();
+    } else {
+        breadbox_log_error(BBLOG_BREADBOX, "Failed to initialize SDL2: %s", SDL_GetError());
     }
     return ret;
 }
@@ -38,6 +56,7 @@ void breadbox_run(breadbox_t *engine) {
         if(breadbox_subs_poll(&engine->subs, engine->options, &msg)) {
             switch(msg) {
                 case BBMSG_QUIT:
+                    breadbox_log_info(BBLOG_BREADBOX, "Quit message received. Stopping engine.");
                     alive = false;
                     break;
                 case BBMSG_VIEW:

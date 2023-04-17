@@ -35,8 +35,13 @@ int breadbox_subs_poll_sdl(breadbox_subs_t *subs, breadbox_msg_t *msg) {
 }
 
 int breadbox_subs_poll(breadbox_subs_t *subs, breadbox_options_t *options, breadbox_msg_t *msg) {
-    if(subs->tick < SDL_GetTicks() / (1000 / options->tickrate)) {
+    int tick_duration = 1000 / options->tickrate;
+    int elapsed = subs->tick - (SDL_GetTicks() / tick_duration);
+    if(elapsed > tick_duration) {
         subs->tick++;
+        if(elapsed > (tick_duration * 2)) {
+            breadbox_log_warning(BBLOG_SUBSCRIPTION, "Running %d ticks behind! Did the tickrate just change?", elapsed / tick_duration);
+        }
         *msg = BBMSG_TICK;
         return 1;
     } else if(breadbox_subs_poll_sdl(subs, msg)) {

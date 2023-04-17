@@ -8,6 +8,7 @@
 
 #include "GL/gl.h"
 
+#include "log.h"
 #include "view.h"
 
 int breadbox_view_init(breadbox_view_t *view, breadbox_options_t *options) {
@@ -25,12 +26,25 @@ int breadbox_view_init(breadbox_view_t *view, breadbox_options_t *options) {
     if(view->window) {
         view->context = SDL_GL_CreateContext(view->window);
         if(view->context) {
-            SDL_SetRelativeMouseMode(SDL_TRUE);
-            SDL_SetWindowFullscreen(view->window, options->fullscreen ? SDL_WINDOW_FULLSCREEN : 0);
-            SDL_GL_SetSwapInterval(options->vsync);
+            if(SDL_SetRelativeMouseMode(SDL_TRUE)) {
+                breadbox_log_warning(BBLOG_VIEW, "Failed to capture mouse: %s", SDL_GetError());
+            }
+            if(SDL_SetWindowFullscreen(view->window, options->fullscreen ? SDL_WINDOW_FULLSCREEN : 0)) {
+                breadbox_log_warning(BBLOG_VIEW, "Failed to set fullscreen: %s", SDL_GetError());
+            }
+            if(SDL_GL_SetSwapInterval(options->vsync)) {
+                breadbox_log_warning(BBLOG_VIEW, "Failed to set VSync: %s", SDL_GetError());
+            }
             return 0;
+        } else {
+            breadbox_log_error(BBLOG_VIEW, "Failed to create OpenGL context: %s", SDL_GetError());
         }
         SDL_DestroyWindow(view->window);
+    } else {
+        // This should alleviate the generic error messages I complained about
+        // in breadbox.c. It's not perfect but it's certainly better than
+        // nothing. ~Alex
+        breadbox_log_error(BBLOG_VIEW, "Failed to create window: %s", SDL_GetError());
     }
     return 1;
 }

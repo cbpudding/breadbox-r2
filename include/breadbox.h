@@ -3,6 +3,7 @@
 
 #define BREADBOX_PORT 1491
 
+#include "log.h"
 #include "message.h"
 #include "model.h"
 #include "options.h"
