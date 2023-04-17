@@ -3,13 +3,12 @@
 #include "breadbox.h"
 
 int breadbox_init(breadbox_t *engine, breadbox_options_t *options) {
-    int ret;
     engine->options = options;
-    if(!(ret = SDL_Init(SDL_INIT_EVERYTHING))) {
-        if(!(ret = breadbox_model_init(&engine->model))) {
-            if(!(ret = breadbox_update_init(&engine->update))) {
-                if(!(ret = breadbox_subs_init(&engine->subs))) {
-                    if(!(ret = breadbox_view_init(&engine->view, engine->options))) {
+    if(!SDL_Init(SDL_INIT_EVERYTHING)) {
+        if(!breadbox_model_init(&engine->model)) {
+            if(!breadbox_update_init(&engine->update)) {
+                if(!breadbox_subs_init(&engine->subs)) {
+                    if(!breadbox_view_init(&engine->view, engine->options)) {
                         breadbox_log_info(BBLOG_BREADBOX, "Successfully initialized the engine in %dms", SDL_GetTicks());
                         return 0;
                     } else {
@@ -38,7 +37,7 @@ int breadbox_init(breadbox_t *engine, breadbox_options_t *options) {
     } else {
         breadbox_log_error(BBLOG_BREADBOX, "Failed to initialize SDL2: %s", SDL_GetError());
     }
-    return ret;
+    return 1;
 }
 
 void breadbox_fini(breadbox_t *engine) {
