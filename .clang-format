@@ -1,0 +1,14 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+AlignAfterOpenBracket: BlockIndent
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortEnumsOnASingleLine: false
+BinPackArguments: false
+BinPackParameters: false
+IndentCaseLabels: true
+IndentWidth: 4
+UseTab: Always
+SpaceBeforeParens: Never
+TabWidth: 4

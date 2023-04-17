@@ -7,8 +7,8 @@
 #define VIEW_H
 
 typedef struct {
-    SDL_GLContext context;
-    SDL_Window *window;
+	SDL_GLContext context;
+	SDL_Window *window;
 } breadbox_view_t;
 
 int breadbox_view_init(breadbox_view_t *view, breadbox_options_t *options);

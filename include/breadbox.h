@@ -12,11 +12,11 @@
 #include "view.h"
 
 typedef struct {
-    breadbox_model_t model;
-    breadbox_options_t *options;
-    breadbox_subs_t subs;
-    breadbox_update_t update;
-    breadbox_view_t view;
+	breadbox_model_t model;
+	breadbox_options_t *options;
+	breadbox_subs_t subs;
+	breadbox_update_t update;
+	breadbox_view_t view;
 } breadbox_t;
 
 int breadbox_init(breadbox_t *engine, breadbox_options_t *options);

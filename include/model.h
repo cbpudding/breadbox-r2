@@ -2,7 +2,7 @@
 #define MODEL_H
 
 typedef struct {
-    // TODO: Prop stuff
+	// TODO: Prop stuff
 } breadbox_model_t;
 
 int breadbox_model_init(breadbox_model_t *model);
