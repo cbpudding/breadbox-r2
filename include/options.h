@@ -8,6 +8,8 @@ typedef struct {
 	bool fullscreen;
 	// The height of the window in pixels
 	int height;
+	// The value of argv[0] (used for PhysFS)
+	char *meta;
 	// The title of the window
 	char *name;
 	// How many times to update the model per second

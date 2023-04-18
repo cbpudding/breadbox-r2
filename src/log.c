@@ -62,9 +62,7 @@ void breadbox_log_info(breadbox_logsource_t source, const char *format, ...) {
 	va_end(args);
 }
 
-void breadbox_log_warn(
-	breadbox_logsource_t source, const char *format, ...
-) {
+void breadbox_log_warn(breadbox_logsource_t source, const char *format, ...) {
 	va_list args;
 	va_start(args, format);
 	breadbox_log(source, BBLOG_WARNING, format, args);
