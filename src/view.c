@@ -38,10 +38,19 @@ int breadbox_view_init(breadbox_view_t *view, breadbox_options_t *options) {
 					BBLOG_VIEW, "Failed to set fullscreen: %s", SDL_GetError()
 				);
 			}
-			if(SDL_GL_SetSwapInterval(options->vsync)) {
-				breadbox_log_warn(
-					BBLOG_VIEW, "Failed to set VSync: %s", SDL_GetError()
-				);
+			if(options->vsync) {
+				// Attempt adaptive vsync, if not supported then switch to
+				// normal vsync
+				if(SDL_GL_SetSwapInterval(-1) == -1) {
+					breadbox_log_debug(
+						BBLOG_VIEW, "System does not support Adaptive VSync, attempting normal vsync: %s", SDL_GetError()
+					);
+					if(SDL_GL_SetSwapInterval(1)) {
+						breadbox_log_warn(
+							BBLOG_VIEW, "Failed to set VSync: %s", SDL_GetError()
+						);
+					}
+				}
 			}
 			return 0;
 		} else {
