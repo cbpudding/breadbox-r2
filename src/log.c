@@ -4,6 +4,13 @@
 
 #include "log.h"
 
+const char *LOGLEVEL_COLOR[4] = {
+	"\e[90m", // BBLOG_DEBUG
+	"\e[31m", // BBLOG_ERROR
+	"",		  // BBLOG_INFO
+	"\e[33m"  // BBLOG_WARNING
+};
+
 const char *LOGLEVEL_IDENTIFIERS[4] = {
 	"DBUG", // BBLOG_DEBUG
 	"EROR", // BBLOG_ERROR
@@ -26,7 +33,8 @@ void breadbox_log(
 	va_list args
 ) {
 	printf(
-		"%11.3f %4s %4s ",
+		"%s%11.3f %4s %4s ",
+		LOGLEVEL_COLOR[level],
 		(float)SDL_GetTicks() / 1000.0,
 		LOGSOURCE_IDENTIFIERS[source],
 		LOGLEVEL_IDENTIFIERS[level]
@@ -34,9 +42,9 @@ void breadbox_log(
 	vprintf(format, args);
 // Gotta make Windows users happy by supporting old TTY standards! ~Alex
 #ifdef _WIN32
-	printf("\r\n");
+	printf("\e[0m\r\n");
 #else
-	printf("\n");
+	printf("\e[0m\n");
 #endif
 	// TODO: Should we log to a file as well? ~Alex
 }
