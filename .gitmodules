@@ -1,0 +1,3 @@
+[submodule "lib/physfs"]
+	path = lib/physfs
+	url = https://github.com/icculus/physfs
