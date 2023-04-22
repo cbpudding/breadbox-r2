@@ -5,7 +5,7 @@ project(breadbox C)
 set(OpenGL_GL_PREFERENCE GLVND)
 
 find_package(OpenGL REQUIRED)
-find_package(PhysFS 2.0.3 REQUIRED)
+find_package(PhysFS REQUIRED)
 find_package(SDL2 REQUIRED)
 
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.c)

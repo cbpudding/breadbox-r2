@@ -11,34 +11,80 @@
 #include "log.h"
 #include "view.h"
 
+void ident_matrix(breadbox_matrix_t *victim) {
+	// I feel like there should be a better way to define these... ~Alex
+	victim->a = 1.0;
+	victim->b = 0.0;
+	victim->c = 0.0;
+	victim->d = 0.0;
+	victim->e = 0.0;
+	victim->f = 1.0;
+	victim->g = 0.0;
+	victim->h = 0.0;
+	victim->i = 0.0;
+	victim->j = 0.0;
+	victim->k = 1.0;
+	victim->l = 0.0;
+	victim->m = 0.0;
+	victim->n = 0.0;
+	victim->o = 0.0;
+	victim->p = 1.0;
+}
+
 // I hope I did all of this correctly... ~Alex
-void mult_matrix_matrix(breadbox_matrix_t *product, breadbox_matrix_t *f1, breadbox_matrix_t *f2) {
-	product->a = (f1->a * f2->a) + (f1->e * f2->b) + (f1->i * f2->c) + (f1->m * f2->d);
-	product->b = (f1->b * f2->a) + (f1->f * f2->b) + (f1->j * f2->c) + (f1->n * f2->d);
-	product->c = (f1->c * f2->a) + (f1->g * f2->b) + (f1->k * f2->c) + (f1->o * f2->d);
-	product->d = (f1->d * f2->a) + (f1->h * f2->b) + (f1->l * f2->c) + (f1->p * f2->d);
-	product->e = (f1->a * f2->e) + (f1->e * f2->f) + (f1->i * f2->g) + (f1->m * f2->h);
-	product->f = (f1->b * f2->e) + (f1->f * f2->f) + (f1->j * f2->g) + (f1->n * f2->h);
-	product->g = (f1->c * f2->e) + (f1->g * f2->f) + (f1->k * f2->g) + (f1->o * f2->h);
-	product->h = (f1->d * f2->e) + (f1->h * f2->f) + (f1->l * f2->g) + (f1->p * f2->h);
-	product->i = (f1->a * f2->i) + (f1->e * f2->j) + (f1->i * f2->k) + (f1->m * f2->l);
-	product->j = (f1->b * f2->i) + (f1->f * f2->j) + (f1->j * f2->k) + (f1->n * f2->l);
-	product->k = (f1->c * f2->i) + (f1->g * f2->j) + (f1->k * f2->k) + (f1->o * f2->l);
-	product->l = (f1->d * f2->i) + (f1->h * f2->j) + (f1->l * f2->k) + (f1->p * f2->l);
-	product->m = (f1->a * f2->m) + (f1->e * f2->n) + (f1->i * f2->o) + (f1->m * f2->p);
-	product->n = (f1->b * f2->m) + (f1->f * f2->n) + (f1->j * f2->o) + (f1->n * f2->p);
-	product->o = (f1->c * f2->m) + (f1->g * f2->n) + (f1->k * f2->o) + (f1->o * f2->p);
-	product->p = (f1->d * f2->m) + (f1->h * f2->n) + (f1->l * f2->o) + (f1->p * f2->p);
+void mult_matrix_matrix(
+	breadbox_matrix_t *product, breadbox_matrix_t *f1, breadbox_matrix_t *f2
+) {
+	product->a =
+		(f1->a * f2->a) + (f1->e * f2->b) + (f1->i * f2->c) + (f1->m * f2->d);
+	product->b =
+		(f1->b * f2->a) + (f1->f * f2->b) + (f1->j * f2->c) + (f1->n * f2->d);
+	product->c =
+		(f1->c * f2->a) + (f1->g * f2->b) + (f1->k * f2->c) + (f1->o * f2->d);
+	product->d =
+		(f1->d * f2->a) + (f1->h * f2->b) + (f1->l * f2->c) + (f1->p * f2->d);
+	product->e =
+		(f1->a * f2->e) + (f1->e * f2->f) + (f1->i * f2->g) + (f1->m * f2->h);
+	product->f =
+		(f1->b * f2->e) + (f1->f * f2->f) + (f1->j * f2->g) + (f1->n * f2->h);
+	product->g =
+		(f1->c * f2->e) + (f1->g * f2->f) + (f1->k * f2->g) + (f1->o * f2->h);
+	product->h =
+		(f1->d * f2->e) + (f1->h * f2->f) + (f1->l * f2->g) + (f1->p * f2->h);
+	product->i =
+		(f1->a * f2->i) + (f1->e * f2->j) + (f1->i * f2->k) + (f1->m * f2->l);
+	product->j =
+		(f1->b * f2->i) + (f1->f * f2->j) + (f1->j * f2->k) + (f1->n * f2->l);
+	product->k =
+		(f1->c * f2->i) + (f1->g * f2->j) + (f1->k * f2->k) + (f1->o * f2->l);
+	product->l =
+		(f1->d * f2->i) + (f1->h * f2->j) + (f1->l * f2->k) + (f1->p * f2->l);
+	product->m =
+		(f1->a * f2->m) + (f1->e * f2->n) + (f1->i * f2->o) + (f1->m * f2->p);
+	product->n =
+		(f1->b * f2->m) + (f1->f * f2->n) + (f1->j * f2->o) + (f1->n * f2->p);
+	product->o =
+		(f1->c * f2->m) + (f1->g * f2->n) + (f1->k * f2->o) + (f1->o * f2->p);
+	product->p =
+		(f1->d * f2->m) + (f1->h * f2->n) + (f1->l * f2->o) + (f1->p * f2->p);
 }
 
-void mult_matrix_vector(breadbox_vector_t *product, breadbox_matrix_t *f1, breadbox_vector_t *f2) {
-	product->x = (f1->a * f2->x) + (f1->b * f2->y) + (f1->c * f2->z) + (f1->d * f2->w);
-	product->y = (f1->e * f2->x) + (f1->f * f2->y) + (f1->g * f2->z) + (f1->h * f2->w);
-	product->z = (f1->i * f2->x) + (f1->j * f2->y) + (f1->k * f2->z) + (f1->l * f2->w);
-	product->w = (f1->m * f2->x) + (f1->n * f2->y) + (f1->o * f2->z) + (f1->p * f2->w);
+void mult_matrix_vector(
+	breadbox_vector_t *product, breadbox_matrix_t *f1, breadbox_vector_t *f2
+) {
+	product->x =
+		(f1->a * f2->x) + (f1->b * f2->y) + (f1->c * f2->z) + (f1->d * f2->w);
+	product->y =
+		(f1->e * f2->x) + (f1->f * f2->y) + (f1->g * f2->z) + (f1->h * f2->w);
+	product->z =
+		(f1->i * f2->x) + (f1->j * f2->y) + (f1->k * f2->z) + (f1->l * f2->w);
+	product->w =
+		(f1->m * f2->x) + (f1->n * f2->y) + (f1->o * f2->z) + (f1->p * f2->w);
 }
 
-void mult_vector_vector(breadbox_vector_t *product, breadbox_vector_t *f1, breadbox_vector_t *f2) {
+void mult_vector_vector(
+	breadbox_vector_t *product, breadbox_vector_t *f1, breadbox_vector_t *f2
+) {
 	product->x = f1->x * f2->x;
 	product->y = f1->y * f2->y;
 	product->z = f1->z * f2->z;
@@ -77,11 +123,16 @@ int breadbox_view_init(breadbox_view_t *view, breadbox_options_t *options) {
 				// normal vsync
 				if(SDL_GL_SetSwapInterval(-1) == -1) {
 					breadbox_log_debug(
-						BBLOG_VIEW, "System does not support Adaptive VSync, attempting normal vsync: %s", SDL_GetError()
+						BBLOG_VIEW,
+						"System does not support Adaptive VSync, attempting "
+						"normal vsync: %s",
+						SDL_GetError()
 					);
 					if(SDL_GL_SetSwapInterval(1)) {
 						breadbox_log_warn(
-							BBLOG_VIEW, "Failed to set VSync: %s", SDL_GetError()
+							BBLOG_VIEW,
+							"Failed to set VSync: %s",
+							SDL_GetError()
 						);
 					}
 				}

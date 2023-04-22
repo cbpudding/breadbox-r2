@@ -34,9 +34,17 @@ typedef struct {
 	float w;
 } breadbox_vector_t;
 
-void mult_matrix_matrix(breadbox_matrix_t *product, breadbox_matrix_t *f1, breadbox_matrix_t *f2);
-void mult_matrix_vector(breadbox_vector_t *product, breadbox_matrix_t *f1, breadbox_vector_t *f2);
-void mult_vector_vector(breadbox_vector_t *product, breadbox_vector_t *f1, breadbox_vector_t *f2);
+void ident_matrix(breadbox_matrix_t *victim);
+
+void mult_matrix_matrix(
+	breadbox_matrix_t *product, breadbox_matrix_t *f1, breadbox_matrix_t *f2
+);
+void mult_matrix_vector(
+	breadbox_vector_t *product, breadbox_matrix_t *f1, breadbox_vector_t *f2
+);
+void mult_vector_vector(
+	breadbox_vector_t *product, breadbox_vector_t *f1, breadbox_vector_t *f2
+);
 
 typedef struct {
 	SDL_GLContext context;
