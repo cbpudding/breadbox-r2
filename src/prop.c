@@ -12,9 +12,47 @@
 #include "log.h"
 #include "prop.h"
 
+breadbox_prop_vertex_t *breadbox_prop_load_parse(PHYSFS_File *obj) {
+	char *data;
+	int len = PHYSFS_fileLength(obj);
+	breadbox_prop_vertex_t *next;
+	breadbox_prop_vertex_t *root = NULL;
+	if(len > 0) {
+		breadbox_log_error(
+			BBLOG_MODEL, "No data to load prop"
+		);
+		return NULL;
+	}
+	data = malloc(len);
+	if(!data) {
+		// TODO: We should probably print the filename as well for debugging
+		// purposes. ~Alex
+		breadbox_log_error(
+			BBLOG_MODEL, "Failed to allocate memory for prop"
+		);
+		return NULL;
+	}
+	if(PHYSFS_read(obj, data, 1, len) < 0) {
+		breadbox_log_error(
+			BBLOG_MODEL, "Failed to read prop data"
+		);
+		free(data);
+		return NULL;
+	}
+	// ...
+	free(data);
+	return root;
+}
+
 breadbox_prop_t *breadbox_prop_load(const char *filename) {
 	PHYSFS_File *obj;
 	breadbox_prop_t *prop;
+	if(!PHYSFS_exists(filename)) {
+		breadbox_log_error(
+			BBLOG_MODEL, "Failed to find prop \"%s\"", filename
+		);
+		return NULL;
+	}
 	prop = malloc(sizeof(breadbox_prop_t));
 	if(!prop) {
 		breadbox_log_error(
@@ -53,6 +91,16 @@ breadbox_prop_t *breadbox_prop_load(const char *filename) {
 			"Failed to load prop \"%s\": %s",
 			filename,
 			PHYSFS_getLastError()
+		);
+		breadbox_prop_unload(prop);
+		return NULL;
+	}
+	prop->vertices = breadbox_prop_load_parse(obj);
+	if(!prop->vertices) {
+		breadbox_log_error(
+			BBLOG_MODEL,
+			"Failed to load prop data for \"%s\"",
+			filename
 		);
 		breadbox_prop_unload(prop);
 		return NULL;
