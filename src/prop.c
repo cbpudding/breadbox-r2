@@ -12,36 +12,56 @@
 #include "log.h"
 #include "prop.h"
 
-breadbox_prop_vertex_t *breadbox_prop_load_parse(PHYSFS_File *obj) {
+int breadbox_prop_load_parse(breadbox_prop_t *prop, PHYSFS_File *obj) {
+	int count = 1;
 	char *data;
 	int len = PHYSFS_fileLength(obj);
-	breadbox_prop_vertex_t *next;
-	breadbox_prop_vertex_t *root = NULL;
+	char **lines;
+	breadbox_prop_face_t *last_face = NULL;
+	breadbox_prop_vertex_t *last_vertex = NULL;
 	if(len > 0) {
 		breadbox_log_error(
 			BBLOG_MODEL, "No data to load prop"
 		);
-		return NULL;
+		return 1;
 	}
-	data = malloc(len);
+	data = malloc(len + 1);
 	if(!data) {
 		// TODO: We should probably print the filename as well for debugging
 		// purposes. ~Alex
 		breadbox_log_error(
 			BBLOG_MODEL, "Failed to allocate memory for prop"
 		);
-		return NULL;
+		return 1;
 	}
 	if(PHYSFS_read(obj, data, 1, len) < 0) {
 		breadbox_log_error(
 			BBLOG_MODEL, "Failed to read prop data"
 		);
 		free(data);
-		return NULL;
+		return 1;
+	}
+	for(int i = 0; i < len; i++) {
+		if(data[i] == '\n') {
+			count++;
+		}
+	}
+	lines = malloc(sizeof(char *) * (count + 1));
+	if(!lines) {
+		breadbox_log_error(
+			BBLOG_MODEL, "Unable to parse prop: Unable to allocate line array"
+		);
+		free(data);
+		return 1;
+	}
+	count = 0;
+	lines[0] = strtok(data, "\r\n");
+	while(lines[count]) {
+		lines[++count] = strtok(NULL, "\r\n");
 	}
 	// ...
 	free(data);
-	return root;
+	return 0;
 }
 
 breadbox_prop_t *breadbox_prop_load(const char *filename) {
@@ -95,8 +115,7 @@ breadbox_prop_t *breadbox_prop_load(const char *filename) {
 		breadbox_prop_unload(prop);
 		return NULL;
 	}
-	prop->vertices = breadbox_prop_load_parse(obj);
-	if(!prop->vertices) {
+	if(breadbox_prop_load_parse(obj)) {
 		breadbox_log_error(
 			BBLOG_MODEL,
 			"Failed to load prop data for \"%s\"",
