@@ -1,13 +1,18 @@
+#include "fast_obj.h"
+#include "mathc.h"
+
 #include "view.h"
 
 #ifndef PROP_H
 #define PROP_H
 
 typedef struct {
+	fastObjMesh *mesh;
 	char *path;
 	// Reference counting will allow us to reuse props without too much extra
 	// memory usage! ~Alex
 	int *refcount;
+	struct mat4 view;
 } breadbox_prop_t;
 
 breadbox_prop_t *breadbox_prop_load(const char *filename);
