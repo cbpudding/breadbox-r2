@@ -3,18 +3,6 @@
 #ifndef PROP_H
 #define PROP_H
 
-typedef struct breadbox_prop_vertex_t {
-	breadbox_vector_t position;
-	struct breadbox_prop_vertex_t *next;
-} breadbox_prop_vertex_t;
-
-typedef struct breadbox_prop_face_t {
-	breadbox_prop_vertex_t *a;
-	breadbox_prop_vertex_t *b;
-	breadbox_prop_vertex_t *c;
-	struct breadbox_prop_face_t *next;
-} breadbox_prop_face_t;
-
 typedef struct {
 	breadbox_prop_face_t *faces;
 	char *path;
